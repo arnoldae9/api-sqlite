@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
 from datetime import datetime
+from generar_data import generar_datos_ventas
 
 app = FastAPI(title="API Local para Power BI", version="1.0")
 DB_NAME = "sales_database.db"
@@ -47,15 +48,8 @@ def init_db():
     
     # Si la tabla está vacía, insertar datos iniciales de prueba
     if count == 0:
-        initial_data = [
-            ("Laptop Pro 15", "Electrónica", 2, 1200.00, 2400.00, "2026-10-01 10:15:00"),
-            ("Mouse Inalámbrico", "Accesorios", 5, 25.50, 127.50, "2026-10-02 11:30:00"),
-            ("Teclado Mecánico", "Accesorios", 3, 85.00, 255.00, "2026-10-03 14:20:00"),
-            ("Monitor 27 Pulgadas", "Electrónica", 1, 320.00, 320.00, "2026-10-05 09:45:00"),
-            ("Silla Ergonómica", "Mobiliario", 2, 210.00, 420.00, "2026-10-07 16:00:00"),
-            ("Escritorio Elevable", "Mobiliario", 1, 450.00, 450.00, "2026-10-10 12:10:00"),
-            ("Audífonos Bluetooth", "Electrónica", 4, 60.00, 240.00, "2026-10-12 15:30:00")
-        ]
+        #TODO: Generar una opción para que
+        initial_data = generar_datos_ventas(1000)  # Generar 1000 registros de ventas de prueba y eliminar los datos preexistentes
         cursor.executemany("""
             INSERT INTO sales (product, category, quantity, unit_price, total_amount, sale_date)
             VALUES (?, ?, ?, ?, ?, ?)
