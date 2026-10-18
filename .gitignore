@@ -8,3 +8,13 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Power BI local caches and user settings
+*.pbi/
+.pbi/
+cache.abf
+localSettings.json
+
+# Temporary files
+~$*.pbip
+~$*.pbix
